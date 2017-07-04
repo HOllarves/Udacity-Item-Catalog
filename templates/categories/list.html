@@ -1,0 +1,24 @@
+{% extends "index.html" %} {% include "header.html" %} {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    {% for category in categories %}
+    <div class="header-blue block">
+      <div class="col-md-8">
+        <h1 class="pull-left">{{ category.name | capitalize }}</h1>
+      </div>
+      <div class="col-md-2">
+        <a href="{{ url_for('render_show_category', category_id=category.id) }}" class="btn pull-right">More info.</a>
+      </div>
+      {% if 'username' in session %}
+      <div class="col-md-2">
+        <a href="{{ url_for('render_edit_category', category_id=category.id) }}" class="btn pull-right">Edit.</a>
+      </div>
+      <div class="col-md-2">
+        <a href="{{ url_for('render_delete_category', category_id=category.id) }}" class="btn pull-right">Delete.</a>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

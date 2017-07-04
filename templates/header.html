@@ -1,0 +1,33 @@
+{% block header %}
+<div class="header-blue">
+  <nav class="navbar navbar-default navigation-clean-search">
+    <div class="container">
+      <div class="navbar-header"><a class="navbar-brand navbar-link" href="/">The Magnificent Random Item Store</a>
+        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      </div>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <form class="navbar-form navbar-left" target="_self">
+          <div class="form-group">
+            <label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>
+            <input class="form-control search-field" type="search" name="search" id="search-field">
+          </div>
+        </form>
+        {% if not 'username' in session %}
+        <p class="navbar-text navbar-right">
+          <a class="btn btn-default action-button" id="sign_in_button" role="button" href="#">Sign In</a>
+        </p>
+        {% else %}
+        <div class="login-buttons">
+          <p class="navbar-text navbar-right">
+            <a class="btn btn-default action-button" href="{{ url_for('gdisconnect')}}">Logout</a>
+          </p>
+          <p class="navbar-text navbar-right">
+            <span class="btn btn-default action-button user-name" role="button">{{ session['username'] }}</span>
+          </p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</div>
+{% endblock %}

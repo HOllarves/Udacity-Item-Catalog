@@ -1,0 +1,232 @@
+body {
+  background: linear-gradient(135deg, #172a74, #21a9af);
+  background-color: #184e8e;
+}
+
+
+/**
+ Header
+**/
+
+.navbar {
+  border-bottom: 1px solid #fff !important;
+}
+
+.user-name {
+  cursor: default;
+}
+
+
+/**
+ Modal
+**/
+
+#login_modal .modal-body {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+/**
+ Theme
+**/
+
+.header-blue-container {
+  height: calc(100vh - 93px);
+}
+
+.header-blue {
+  padding-bottom: 0;
+}
+
+.header-blue .hero {
+  margin-top: 15px;
+}
+
+
+/**
+ Categories
+**/
+
+
+/** List **/
+
+.block {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #fff;
+  margin-bottom: 15px;
+}
+
+.block h1 {
+  color: #fff;
+}
+
+.block a {
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 15px;
+  font-size: 15px;
+  width: 100%;
+  border-radius: 0px;
+}
+
+
+/** Show **/
+
+#category_show .description {
+  padding: 30px;
+  color: #fff;
+  font-size: 20px;
+  text-align: justify;
+}
+
+#category_show .items-container {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#category_show .card {
+  padding: 15px;
+  margin: 5px;
+  border: 1px solid #fff;
+  margin-bottom: 10px;
+}
+
+#category_show .col-md-4 {
+  width: calc(33.33333% - 10px) !important;
+}
+
+#category_show .description {
+  color: #fff;
+  font-size: 18px;
+  text-align: justify;
+}
+
+#category_show .button-container a {
+  width: 100%;
+  padding: 5px;
+  color: #fff;
+  border: 1px solid #fff;
+  text-align: center;
+}
+
+#category_show .title h4 {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+
+/** Edit **/
+
+#category_edit .title {
+  color: #fff;
+}
+
+.edit-form-container label {
+  color: #fff;
+  font-size: 25px;
+}
+
+.edit-form-container input, .edit-form-container textarea {
+  border-radius: 0;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.edit-form-container .submit-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 15px;
+  float: right;
+}
+
+
+/** Delete **/
+
+#delete_category h1 {
+  color: #fff;
+}
+
+#delete_category_form {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.delete-form-container h1 {
+  margin-bottom: 15px;
+}
+
+.delete-form-container .delete-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 15px;
+}
+
+
+/**
+ Items
+**/
+
+
+/** Show **/
+
+#item_show .title {
+  display: flex;
+  align-items: center;
+}
+
+#item_show .title h1 {
+  color: #fff;
+  font-size: 46px;
+}
+
+#item_show .description p {
+  font-size: 18px;
+  color: #fff;
+  text-align: justify;
+  line-height: 35px;
+}
+
+#item_show .price-container h3 {
+  color: #fff;
+  font-size: 30px;
+}
+
+#item_show .button-container a {
+  padding: 20px;
+  border: 1px solid #fff;
+  color: #fff;
+  width: 100%;
+}
+
+
+/** Edit **/
+
+#item_edit .title {
+  color: #fff
+}
+
+.edit-itm-btn {
+  color: #fff;
+  padding: 15px;
+  border: 1px solid #fff;
+}
+
+
+/** Delete **/
+
+#item_delete .title, #item_delete h1 {
+  color: #fff;
+}

@@ -1,0 +1,38 @@
+{% extends "index.html" %} {% include "header.html" %} {% block content %}
+<section id="category_show">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="image-container">
+        <img src="http://placehold.it/400x600" alt="">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="description">
+        <p>{{ category.description }}</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12 items-container">
+      {% for item in items %}
+      <div class="col-md-4 card">
+        <div class="col-xs-12 image-container">
+          <img src="http://placehold.it/300x200" alt="Item placeholder image">
+        </div>
+        <div class="col-xs-12 title">
+          <h4>{{ item.name | capitalize }}</h4>
+          <hr>
+        </div>
+        <div class="col-xs-12 description">
+          <p>{{ item.description | truncate(100) }}</p>
+        </div>
+        <div class="col-xs-12 button-container">
+          <a href="{{url_for('render_item', category_id=category.id, item_id=item.id)}}" class="btn">More info...</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

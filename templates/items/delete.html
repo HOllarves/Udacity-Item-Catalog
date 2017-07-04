@@ -1,0 +1,16 @@
+{% extends "index.html" %} {% include "header.html" %} {% block content %}
+<section id="item_delete">
+  <div class="row">
+    <div class="col-md-12 title">
+      <h1>Delete</h1>
+      <hr>
+    </div>
+    <div class="col-md-12 delete-form-container">
+      <form id="delete_item_form" action="/categories/{{category_id}}/item/delete/{{ item.id }}" method="POST">
+        <h1> Are you sure you want to delete {{ item.name | capitalize }}?</h1>
+        <button type="submit" class="btn delete-btn">Remove</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

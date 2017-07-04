@@ -1,0 +1,40 @@
+{% extends "index.html" %} {% include "header.html" %} {% block content %}
+<section id="item_show">
+  <div class="row">
+    <div class="col-md-12 title">
+      <div class="col-md-10">
+        <h1>{{ item.name.upper() }}</h1>
+      </div>
+      {% if 'username' in session %}
+      <div class="item-btn col-md-1">
+        <a class="btn edit-itm-btn" href="{{ url_for('render_edit_item', category_id=category.id, item_id=item.id) }}"> Edit </a>
+      </div>
+      <div class="item-btn col-md-1">
+        <a class="btn edit-itm-btn" href="{{ url_for('render_delete_item', category_id=category.id, item_id=item.id) }}"> Delete </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="horizonatal-rule col-md-12">
+      <hr>
+    </div>
+    <div class="col-md-6 image">
+      <img src="http://placehold.it/500x600" alt="Item placeholder image">
+    </div>
+    <div class="col-md-6 description">
+      <p>{{ item.description }}</p>
+      <div class="col-xs-12 horizontal-rule">
+        <hr>
+      </div>
+      <div class="col-md-8 price-container">
+        <h3>$ {{ item.price }}</h3>
+      </div>
+      <div class="col-md-4 button-container">
+        <a href="#" class="btn">Buy!</a>
+      </div>
+      <div class="col-xs-12 horizontal-rule">
+        <hr>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
