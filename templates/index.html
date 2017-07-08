@@ -11,6 +11,15 @@
 </head>
 
 <body>
+	{% with messages = get_flashed_messages() %}
+  		{% if messages %}
+    	<ul class=flashes>
+    	{% for message in messages %}
+      		<li>{{ message }}</li>
+    	{% endfor %}
+    	</ul>
+  		{% endif %}
+	{% endwith %}
 	{% block header %} {% endblock %} {% block hero %} {% endblock %}
 	<div class="container">
 		{% block content %} {% endblock %}
@@ -28,12 +37,8 @@
 				<div class="modal-body">
 					<div id="signInButton">
 						<span class="g-signin" data-scope="openid email" data-clientid="793472740320-69qsmck60d6jsebg4dcucepo7a56ekko.apps.googleusercontent.com" data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin" data-callback="signInCallback"
-						  data-approvalprompt="force">
-            </span>
+						data-approvalprompt="force"></span>
 					</div>
-					<fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-						<a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-					</fb:login-button>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

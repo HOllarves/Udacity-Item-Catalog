@@ -123,6 +123,12 @@ body {
   color: #fff;
 }
 
+/** New **/
+
+#category_new .title {
+  color: #fff;
+}
+
 
 /** Edit **/
 
@@ -230,3 +236,18 @@ body {
 #item_delete .title, #item_delete h1 {
   color: #fff;
 }
+
+
+
+/** Flashes **/
+
+.flashes {
+  text-align: center;
+  color: #fff;
+  padding: 15px;
+  margin-left: 40%;
+  margin-right: 30%;
+  border:1px solid #fff;
+  list-style: none;
+}
+

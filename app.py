@@ -23,10 +23,6 @@ app.static_folder = 'static'
 CLIENT_ID = json.loads(
     open('config/client_secret.json', 'r').read())['web']['client_id']
 
-# Loads Facebook's OAuth credentials
-FACEBOOK = json.loads(
-    open('config/fb_credentials.json', 'r').read())
-
 # Starting DB Session
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -227,8 +223,10 @@ def render_new_category():
     """
     if request.method == 'POST':
         name = request.form['name']
-        if name:
-            new_category = Category(name=name)
+        description = request.form['description']
+        user_id = getUserId(login_session['email'])
+        if name and user_id:
+            new_category = Category(name=name, description=description, user_id=user_id)
             session.add(new_category)
             session.commit()
             return redirect(url_for('render_list_categories'))
@@ -281,18 +279,27 @@ def render_edit_category(category_id):
     """
     category = session.query(Category).filter_by(id=category_id).one()
     if request.method == "POST":
-        name = request.form["name"]
-        description = request.form["description"]
-        if name and description:
-            category.name = name
-            category.description = description
-            session.add(category)
-            session.commit()
+        if getUserId(login_session['email']) == category.user_id:
+            name = request.form["name"]
+            description = request.form["description"]
+            if name and description:
+                category.name = name
+                category.description = description
+                session.add(category)
+                session.commit()
+                return redirect(
+                    url_for(
+                        "render_show_category", category_id=category.id))
+            else:
+                flash("No name was provided")
+                return redirect(
+                    url_for(
+                        "render_show_category", category_id=category.id))
+        else:
+            flash("You cannot modify this item")
             return redirect(
                 url_for(
                     "render_show_category", category_id=category.id))
-        else:
-            flash("No name was provided")
     else:
         return render_template('categories/edit.html', category=category)
 
@@ -310,9 +317,13 @@ def render_delete_category(category_id):
     """
     category = session.query(Category).filter_by(id=category_id).one()
     if request.method == "POST":
-        session.delete(category)
-        session.commit()
-        return redirect(url_for('render_list_categories'))
+        if getUserId(login_session['email']) == category.user_id:
+            session.delete(category)
+            session.commit()
+            return redirect(url_for('render_list_categories'))
+        else:
+            flash("You cannot modify this item")
+            return redirect(url_for('render_list_categories'))
     else:
         return render_template(
             'categories/delete.html', category=category)
@@ -361,9 +372,11 @@ def render_new_item(category_id):
         name = request.form['name']
         price = request.form['price']
         description = request.form['description']
+        user_id = getUserId(login_session['email'])
         category_id = category_id
-        if name and price and description and category_id:
+        if name and price and description and category_id and user_id:
             item = Item(
+                user_id=user_id,
                 name=name,
                 price=price,
                 description=description,
@@ -373,6 +386,7 @@ def render_new_item(category_id):
             return redirect(url_for('render_list_categories'))
         else:
             flash("Some values are missing")
+            return redirect(url_for('render_new_item', category_id=category_id))
     else:
         return render_template('items/new.html')
 
@@ -392,22 +406,30 @@ def render_edit_item(category_id, item_id):
     """
     old_item = session.query(Item).filter_by(id=item_id).one()
     if request.method == 'POST':
-        name = request.form['name']
-        price = request.form['price']
-        description = request.form['description']
-        category_id = category_id
-        if name and price and description and category_id:
-            old_item.name = name
-            old_item.price = price
-            old_item.description = description
+        if getUserId(login_session['email']) == old_item.user_id:
+            name = request.form['name']
+            price = request.form['price']
+            description = request.form['description']
             category_id = category_id
-            session.add(old_item)
-            session.commit()
+            if name and price and description and category_id:
+                old_item.name = name
+                old_item.price = price
+                old_item.description = description
+                category_id = category_id
+                session.add(old_item)
+                session.commit()
+                return redirect(
+                    url_for(
+                        'render_show_category', category_id=category_id))
+            else:
+                flash("Some values are missing")
+                url_for(
+                    'render_show_category', category_id=category_id)
+        else:
+            flash("You cannot modify this item")
             return redirect(
                 url_for(
                     'render_show_category', category_id=category_id))
-        else:
-            flash("Some values are missing")
     else:
         return render_template(
             'items/edit.html', item=old_item, category_id=category_id)
@@ -428,11 +450,17 @@ def render_delete_item(category_id, item_id):
     """
     item = session.query(Item).filter_by(id=item_id).one()
     if request.method == 'POST':
-        session.delete(item)
-        session.commit()
-        return redirect(
-            url_for(
-                'render_show_category', category_id=category_id))
+        if getUserId(login_session['email']) == item.user_id:
+            session.delete(item)
+            session.commit()
+            return redirect(
+                url_for(
+                    'render_show_category', category_id=category_id))
+        else:
+            flash("You cannot modify this item")
+            return redirect(
+                url_for(
+                    'render_show_category', category_id=category_id))
     else:
         return render_template(
             'items/delete.html', item=item, category_id=category_id)

@@ -10,17 +10,27 @@ class User(Base):
     """User Table."""
 
     __tablename__ = 'user'
-    name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
+    name = Column(String(80), nullable=False)
     picture = Column(String(250))
     email = Column(String(100), nullable=False)
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format."""
+        return {
+            'name': self.name,
+            'picture': self.picture,
+            'email': self.email
+        }
 
 class Category(Base):
     """Category Table."""
 
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
     name = Column(String(80), nullable=False)
     description = Column(String(500), nullable=False)
 
@@ -29,6 +39,7 @@ class Category(Base):
         """Return object data in easily serializeable format."""
         return {
            'name': self.name,
+           'user_id': self.user_id,
            'description': self.description,
            'id': self.id,
         }
@@ -39,6 +50,8 @@ class Item(Base):
 
     __tablename__ = 'item'
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
     name = Column(String(250), nullable=False)
     price = Column(String(8))
     description = Column(String(250))
@@ -49,8 +62,9 @@ class Item(Base):
     def serialize(self):
         """Return object data in easily serializeable format."""
         return {
-            "name": self.name,
             "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
             "price": self.price,
             "description": self.description,
             "category": self.category.name

@@ -1,0 +1,23 @@
+{% extends "index.html" %} {% include "header.html" %} {% block content %}
+<section id="category_new">
+  <div class="row">
+    <div class="col-md-12 title">
+      <h1>New</h1>
+      <hr>
+    </div>
+    <div class="edit-form-container col-md-8 center-block">
+      <form id="edit_category_form" action="/categories/new" method="POST">
+        <div class="form-group">
+          <label for="category_name">Name</label>
+          <input type="text" class="form-control" id="category_name" name="name" placeholder="Enter category name">
+        </div>
+        <div class="form-group">
+          <label for="category_description">Description</label>
+          <textarea class="form-control" id="category_description" rows="15" name="description"></textarea>
+        </div>
+        <button class="btn submit-btn" type="submit"> Save </button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
